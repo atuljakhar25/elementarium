@@ -43,10 +43,6 @@ body.dark {
   color: var(--on-primary-container);
 }
 
-body {
-  padding-bottom: 5rem;
-}
-
 #periodic-table {
   width: fit-content;
   max-width: 100%;
@@ -116,4 +112,10 @@ dt, dd {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+}
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  padding-bottom: 5rem;
 }
