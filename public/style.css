@@ -1,0 +1,121 @@
+:root,
+body.dark {
+  --primary:#fabd00;
+  --on-primary:#3f2e00;
+  --primary-container:#5b4300;
+  --on-primary-container:#ffdf9e;
+  --secondary:#d8c4a0;
+  --on-secondary:#3a2f15;
+  --secondary-container:#52452a;
+  --on-secondary-container:#f5e0bb;
+  --tertiary:#b0cfaa;
+  --on-tertiary:#1d361c;
+  --tertiary-container:#334d31;
+  --on-tertiary-container:#ccebc4;
+  --error:#ffb4ab;
+  --on-error:#690005;
+  --error-container:#93000a;
+  --on-error-container:#ffb4ab;
+  --background:#1e1b16;
+  --on-background:#e9e1d8;
+  --surface:#16130e;
+  --on-surface:#e9e1d8;
+  --surface-variant:#4d4639;
+  --on-surface-variant:#d0c5b4;
+  --outline:#998f80;
+  --outline-variant:#4d4639;
+  --shadow:#000000;
+  --scrim:#000000;
+  --inverse-surface:#e9e1d8;
+  --inverse-on-surface:#33302a;
+  --inverse-primary:#785900;
+  --surface-dim:#16130e;
+  --surface-bright:#3c3933;
+  --surface-container-lowest:#100e09;
+  --surface-container-low:#1e1b16;
+  --surface-container:#221f1a;
+  --surface-container-high:#2d2924;
+  --surface-container-highest:#38342e;
+}
+
+::selection {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+}
+
+#periodic-table {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 .5rem 0.6rem 0.5rem;
+  display: grid;
+  grid-template-columns: auto repeat(18, auto);
+  place-items: center;
+  grid-template-areas:
+    " . g1  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . gI"
+    "p1  H g2  .  .  .  .  .  .  .  .  .  . gD gE gF gG gH He"
+    "p2 Li Be  .  .  .  .  .  .  .  .  .  .  B  C  N  O  F Ne"
+    "p3 Na Mg g3 g4 g5 g6 g7 g8 g9 gA gB gC Al Si  P  S Cl Ar"
+    "p4  K Ca Sc Ti  V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr"
+    "p5 Rb Sr  Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te  I Xe"
+    "p6 Cs Ba _1 Hf Ta  W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn"
+    "p7 Fr Ra _2 Rf Db Sg Bh Hs Mt Ds Rg Cn Nh Fl Mc Lv Ts Og"
+    " .  .  . La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu  ."
+    " .  .  . Ac Th Pa  U Np Pu Am Cm Bk Cf Es Fm Md No Lr  .";
+  grid-gap: .25rem;
+  overflow-y: hidden;
+
+  button {
+    display: block;
+  }
+}
+
+.rotate {
+  animation: rotate 16s infinite linear;
+  transform: rotate(0);
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+sup {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+@media only screen and (max-width: 600px) {
+  :is(th, td) {
+    padding: .25rem;
+    white-space: nowrap;
+  } 
+}
+
+p {
+  text-align: justify;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: max-content auto;
+  grid-auto-rows: 4rem;
+  align-items: center;
+  /* gap: 1.5rem 0; */
+}
+
+dt, dd {
+  padding: 0 1rem;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  padding-bottom: 5rem;
+}

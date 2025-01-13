@@ -2,23 +2,271 @@
 
 <html lang="en">
 
-  <head>
+<head>
+  <meta charset="UTF-8">
+  <title>Elementarium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="Description" content="Color picking tool.">
+  <meta property="og:title" content="picker">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="Color picking tool.">
+  <meta property="og:image"
+      content="https://repository-images.githubusercontent.com/250960025/1b0969ff-a9e5-40a7-9058-b7ddbff6f117">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta name="google" content="notranslate">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="icon" type="image/svg" href="/icons/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!-- <link rel="manifest" href="/icons/manifest.json"> -->
+  <meta name="apple-mobile-web-app-title" content="color">
+  <meta name="application-name" content="color">
+  <meta name="msapplication-TileColor" content="#ff0000">
+  <meta name="theme-color" content="#ff0000">
 
-    <title>Mini Elementarium</title>
+  <link href="https://cdn.jsdelivr.net/npm/beercss@3.7.12/dist/cdn/beer.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
 
-  </head>
-  <body>
+  <script type="importmap">
+    { "imports": {
+        "beercss": "https://cdn.jsdelivr.net/npm/beercss@3.7.12/dist/cdn/beer.min.js",
+        "vue": "https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.es.js"
+    } }
+  </script>
 
-    <noscript>
-      <strong>We're sorry but mini-elementarium doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
+  <script type="module" src="app.js" defer></script>
 
-    <div id="app"></div>
+</head>
+<body @vue:mounted="onMounted" class="dark">
 
-  </body>
+  <header class="top-round no-padding" style="position: fixed; inset: 0; top: auto; z-index: 99;">
+    <nav class="small no-space">
+      <div class="button vertical transparent no-wave">
+        <svg viewBox="0 0 320 320" class="circle small"><circle cx="160" cy="160" r="160" fill="#FD2"></circle><circle cx="160" cy="160" r="80" fill="#FFF"></circle><path fill="#222" d="M148.5 140l23 40H280v-20c0-66.2-53.8-120-120-120S40 93.8 40 160s53.8 120 120 120c21.1 0 41.8-5.6 60-16.1l-20-34.6c-12.1 7-26 10.7-40 10.7-44.1 0-80-35.9-80-80s35.9-80 80-80c37.2 0 68.6 25.5 77.5 60h-89z"></path></svg>
+      </div>
+      <div class="max"></div>
+      <button @click="openSearchDialog" class="border">
+        <i>search</i>
+        <div></div>
+        <span class="white-text">ELEMENTARIUM</span>
+        <div></div>
+      </button>
+      <div class="max"></div>
+      <a href="https://github.com/FelixLuciano/elementarium#readme" target="_blank" rel="noreferrer" class="button vertical transparent">
+        <i class="primary-text">help</i>
+        About
+      </a>
+     </nav>
+  </header>
+
+  <main class="page active responsive vertical small ">
+    <div class="grid max top-padding">
+      <div class="s12 m6 ">
+        <canvas is="atom-orbitals" id="atom-orbitals"></canvas>
+
+        <h3 class="small">
+          <i class="extra">line_weight</i>
+          Electronic Configuration
+        </h3>
+
+        <table class="center-align">
+          <thead>
+            <tr>
+              <th style="border-inline-end: .0625rem solid var(--outline);">Layer</th>
+              <th>S</th>
+              <th>P</th>
+              <th>D</th>
+              <th>F</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template v-for="level, index in orbitals">
+              <tr>
+                <td class="min" style="border-inline-end: .0625rem solid var(--outline);">{{ index + 1 }}</td>
+                <td v-for="orbital, i in level" class="large-text bold">
+                  <i v-for="spin in orbital" v-text="spin === 2 ? 'expand_all' : spin === 1 ? 'keyboard_arrow_up' : ''" class="small"></i>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+      <div class="s12 m6">
+        <nav>
+          <h2>
+            {{ scope.chemical.name }}
+          </h2>
+          <div class="max"></div>
+          <button class="transparent" @click="setPrevChemical" :disabled="scope.idSelectedChemical === 0">
+            <i>arrow_back</i>
+          </button>
+          <button class="transparent" @click="setNextChemical" :disabled="scope.idSelectedChemical === 117">
+            <i>arrow_forward</i>
+          </button>
+        </nav>
+
+        <p v-text="scope.chemical.summary" class="large-text medium-line"></p>
+
+        <nav>
+          <div class="max"></div>
+          <a :href="scope.chemical.source" target="_blank" rel="noreferrer" class="button fill">
+            <i>open_in_new</i>
+            <span>Read more</span>
+          </a>
+        </nav>
+
+        <dl style="margin-top: 2rem;">
+          <dt class="surface-container  bold left-round">
+            <i>science</i>
+            Symbol
+          </dt>
+          <dd class="surface-container  right-round">
+            <span>{{ scope.chemical.symbol }}<sup>{{ scope.chemical.idChemical }}</sup></span>
+          </dd>
+          <dt class=" bold">
+            <i>language</i>
+            <em></em>Latin name
+          </dt>
+          <dd class=" italic" v-text="scope.chemical.latinName"></dd>
+          <dt class="surface-container  bold left-round">
+            <i>lightbulb</i>
+            Discovery
+          </dt>
+          <dd class="surface-container  right-round">
+            {{ scope.chemical.discoverer }} at {{ scope.chemical.year }}
+          </dd>
+          <dt class=" bold">
+            <i>palette</i>
+            Appearance
+          </dt>
+          <dd>
+            <template v-if="scope.chemical.appearance !== ''">
+              {{ scope.chemical.appearance }}
+            </template>
+            <template v-else>
+              ---
+            </template>
+          </dd>
+          <dt class="surface-container  bold left-round">
+            <i>category</i>
+            Category
+          </dt>
+          <dd class="surface-container  right-round" v-text="scope.chemical.category"></dd>
+          <dt class=" bold">
+            <i>scale</i>
+            Molar mass
+          </dt>
+          <dd>
+            {{ scope.chemical.mass }} grams/mol
+          </dd>
+          <dt class="surface-container  bold left-round">
+            <i>high_density</i>
+            Density
+          </dt>
+          <dd class="surface-container  right-round">
+            <template v-if="scope.chemical.density !== ''">
+              {{ scope.chemical.density }} gams/cm³
+            </template>
+            <template v-else>
+              Unknown
+            </template>
+          </dd>
+          <dt class=" bold">
+            <i>waves</i>
+            Melting point
+          </dt>
+          <dd>
+            <template v-if="scope.chemical.melt !== ''">
+              {{ scope.chemical.melt }} K
+            </template>
+            <template v-else>
+              Unknown
+            </template>
+          </dd>
+          <dt class="surface-container  bold left-round">
+            <i>heat</i>
+            Boiling point
+          </dt>
+          <dd class="surface-container  right-round">
+            <template v-if="scope.chemical.boil !== ''">
+              {{ scope.chemical.boil }} K
+            </template>
+            <template v-else>
+              Unknown
+            </template>
+          </dd>
+          <dt class=" bold">
+            <i>gradient</i>
+            Phase
+          </dt>
+          <dd v-text="scope.chemical.phase"></dd>
+          <dt class="surface-container  bold left-round">
+            <i>orbit</i>
+            Orbitals
+          </dt>
+          <dd v-text="orbitalsDisplay" class="surface-container  right-round"></dd>
+        </dl>
+      </div>
+    </div>
+  </main>
+
+  <footer class="top-round surface-container-low">
+    &copy; 2025 Luciano Felix. All rights reserved.
+  </footer>
+
+  <div id="overlay" class="overlay small-blur dark"></div>
+  <dialog id="search-dialog" class="bottom">
+    <div id="periodic-table" class="grid scroll">
+      <span style="grid-area: g1;">1</span>
+      <span style="grid-area: g2;">2</span>
+      <span style="grid-area: g3;">3</span>
+      <span style="grid-area: g4;">4</span>
+      <span style="grid-area: g5;">5</span>
+      <span style="grid-area: g6;">6</span>
+      <span style="grid-area: g7;">7</span>
+      <span style="grid-area: g8;">8</span>
+      <span style="grid-area: g9;">9</span>
+      <span style="grid-area: gA;">10</span>
+      <span style="grid-area: gB;">11</span>
+      <span style="grid-area: gC;">12</span>
+      <span style="grid-area: gD;">13</span>
+      <span style="grid-area: gE;">14</span>
+      <span style="grid-area: gF;">15</span>
+      <span style="grid-area: gG;">16</span>
+      <span style="grid-area: gH;">17</span>
+      <span style="grid-area: gI;">18</span>
+      <span style="grid-area: p1; margin: 0 .5rem;">1</span>
+      <span style="grid-area: p2; margin: 0 .5rem;">2</span>
+      <span style="grid-area: p3; margin: 0 .5rem;">3</span>
+      <span style="grid-area: p4; margin: 0 .5rem;">4</span>
+      <span style="grid-area: p5; margin: 0 .5rem;">5</span>
+      <span style="grid-area: p6; margin: 0 .5rem;">6</span>
+      <span style="grid-area: p7; margin: 0 .5rem;">7</span>
+      <i class="extra pink-text" style="grid-area: _1;">more_horiz</i>
+      <i class="extra purple-text" style="grid-area: _2;">more_horiz</i>
+      <template v-for="chemical_ in chemicals">
+        <button v-bind="getChemicalBind(chemical_, $el)">
+          {{ chemical_[2] }}
+          <div class="badge transparent">{{ chemical_[0] }}</div>
+        </button>
+      </template>
+      <svg viewBox="-36 -36 72 72" width="72" height="72" class="absolute rotate" v-bind="chemicalPointerStyle">
+        <circle r="30" fill="none" stroke="white" stroke-dasharray="172 16" stroke-dashoffset="-8" stroke-linecap="round"/>
+        <circle r="4" cx="30" fill="currentColor"/>
+      </svg>
+    </div>
+    <nav class="center-align responsive">
+      <button class="circle fill no-elevate" style="z-index: 2;">
+        <i @click="closeSearchDialog" class="front">arrow_back</i>
+      </button>
+      <div class="field round border">
+        <input autofocus v-model="scope.search" id="search-bar" placeholder="Search" style="text-align: center;">
+      </div>
+      <button class="circle fill no-elevate" style="z-index: 2;">
+        <i @click="clearSearch" class="front">close</i>
+      </button>
+    </nav>
+  </dialog>
+</body>
+
 </html>
