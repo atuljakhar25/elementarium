@@ -218,16 +218,28 @@ class App {
     let remaining = this.scope.chemical.idChemical
     for (let layer = 0, sublevel = 0; remaining > 0; layer++, sublevel--) {
       const size = sublevel * 2 + 1
-      const decay = Math.min(remaining, size * 2)
+      let decay = Math.min(remaining, size * 2)
+
+      if (remaining === decay) {
+        console.log(true,decay, layer, sublevel)
+        console.log(decay % size, sublevel - 1)
+        
+        if (sublevel === 2 && size - decay % size === 1) {
+          orbitals[layer + 1][0][0]--
+          decay++
+        }
+        if (layer === 3 && sublevel === 3 && decay < 3) {
+          decay--
+        }
+        if (layer === 4 && sublevel === 3 && decay < 6) {
+          decay--
+        }
+      }
+
       const spins = new Array(size).fill().map((_, i) => Math.ceil((decay - i) / size))
 
       orbitals[layer][sublevel] = spins
       remaining -= decay
-
-      // if (remaining === 0) {
-      //   if (sublevel === 1 && decay % )
-      //   console.log(decay, layer, sublevel)
-      // }
 
       if (sublevel === 0) {
           sublevel = Math.floor((layer + 1) / 2) + 1
@@ -260,7 +272,7 @@ class App {
     for (let sublevel = 0; layer < 7 && sublevel < 4; layer++, sublevel--) {
         const value = orbitals[layer][sublevel]
 
-        if (value === 0) break
+        if (value === undefined || value == 0) continue
 
         orbits.push([layer + 1, sublevels[sublevel], value])
 
