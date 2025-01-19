@@ -1,17 +1,23 @@
-<!-- Daniel -->
-<svg xmlns="http://www.w3.org/2000/svg" width="910" height="512">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-600 -315 1200 630">
+  <defs>
+    <style>
+      @keyframes a {
+        to{ transform: rotate(1turn); }
+      }
+    </style>
+  </defs>
   <g>
-    <rect fill="#FD2" width="910" height="512"/>
-    <circle fill="#FFF" cx="455" cy="256" r="180"/>
+    <rect fill="#FABD00" x="-600" y="-315" width="1200" height="630"/>
+    <circle fill="#FFFFFF" r="256"/>
   </g>
-  <g style="transform-origin:center;animation:a 36s linear infinite;">
-    <circle fill="none" stroke="#FFF" stroke-width="3" cx="455" cy="256" r="317.5"/>
-    <circle fill="#FD2" cx="137.5" cy="256" r="32"/>
-    <circle fill="#FFF" cx="137.5" cy="256" r="16"/>
-  </g><g>
-    <circle fill="#FD2" cx="455" cy="256" r="120"/>
-    <circle fill="#FFF" cx="455" cy="256" r="60"/>
-    <path fill="#222" d="M446.4 241l17.3 30H545v-15c0-49.6-40.4-90-90-90s-90 40.4-90 90 40.4 90 90 90c15.8 0 31.4-4.2 45-12.1l-15-26c-9.1 5.3-19.5 8-30 8-33.1 0-60-26.9-60-60s26.9-60 60-60c27.9 0 51.4 19.2 58.1 45h-66.7v.1z"/>
+  <g style="animation:a 36s linear infinite;">
+    <circle r="450" fill="none" stroke="#FFFFFF" stroke-width="8" stroke-dasharray="2700 256" stroke-dashoffset="-64" stroke-linecap="round" stroke-opacity=".6"/>
+    <circle fill="#FFFFFF" cx="450" r="32"/>
   </g>
-  <style>@keyframes a{to{transform:rotate(360deg);}}</style>
+  <g>
+    <circle r="160" fill="#FABD00"/>
+    <circle r="80" fill="#FFFFFF"/>
+  <path d="m-20,0l120,0a100,100,0,1,0,-50,86.6025" fill="none" stroke="#221F1A" stroke-width="40" />
+  <path d="m0,-80a80,80,0,1,0,0,160" transform="rotate(-30) scale(.5)" fill="#FFFFFF" />
+  </g>
 </svg>
