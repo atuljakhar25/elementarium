@@ -99,19 +99,30 @@
       </div>
       <div class="s12 m6">
         <nav>
-          <h2>
-            {{ scope.chemical.name }}
+          <h2 v-text="scope.chemical.name">
+            Elementarium
           </h2>
           <div class="max"></div>
-          <button class="transparent" @click="setPrevChemical" :disabled="scope.idSelectedChemical === 0">
+          <button class="s m circle transparent" @click="setPrevChemical" :disabled="scope.idSelectedChemical === 0">
             <i>arrow_back</i>
           </button>
-          <button class="transparent" @click="setNextChemical" :disabled="scope.idSelectedChemical === 117">
+          <button class="l transparent" @click="setPrevChemical" :disabled="scope.idSelectedChemical === 0">
+            <i>arrow_back</i>
+          </button>
+          <button class="s m circle transparent" @click="setNextChemical" :disabled="scope.idSelectedChemical === 117">
+            <i>arrow_forward</i>
+          </button>
+          <button class="l transparent" @click="setNextChemical" :disabled="scope.idSelectedChemical === 117">
             <i>arrow_forward</i>
           </button>
         </nav>
 
-        <p v-text="scope.chemical.summary" class="large-text medium-line"></p>
+        <p v-text="scope.chemical.summary" class="large-text medium-line">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam facilisis arcu nisi, quis rhoncus lacus ultrices quis.
+          Nullam at viverra mauris. Phasellus vitae elit ipsum. In ac porttitor justo. Cras viverra, leo nec pulvinar luctus,
+          mauris eros pulvinar ex, quis facilisis tellus dui et purus. Phasellus eu lorem a elit faucibus feugiat. Phasellus
+          aliquet viverra ante, pulvinar laoreet dui euismod molestie.
+        </p>
 
         <nav>
           <div class="max"></div>
@@ -127,7 +138,7 @@
             Symbol
           </dt>
           <dd class="surface-container  right-round">
-            <span>{{ scope.chemical.symbol }}<sup>{{ scope.chemical.idChemical }}</sup></span>
+            <span v-cloak>{{ scope.chemical.symbol }}<sup>{{ scope.chemical.idChemical }}</sup></span>
           </dd>
           <dt class=" bold">
             <i>language</i>
@@ -139,7 +150,7 @@
             Discovery
           </dt>
           <dd class="surface-container  right-round">
-            {{ scope.chemical.discoverer }} at {{ scope.chemical.year }}
+            <span v-cloak>{{ scope.chemical.discoverer }} at {{ scope.chemical.year }}</span>
           </dd>
           <dt class=" bold">
             <i>palette</i>
@@ -163,7 +174,7 @@
             Molar mass
           </dt>
           <dd>
-            {{ scope.chemical.mass }} grams/mol
+            <span v-cloak>{{ scope.chemical.mass }} grams/mol</span>
           </dd>
           <dt class="surface-container  bold left-round">
             <i>high_density</i>
@@ -216,10 +227,15 @@
     </div>
   </main>
 
-  <footer class="top-round surface-container-low">
-    &copy; 2025 Luciano Felix. All rights reserved.
-  </footer>
-
+  <div class="footer-wrap top-round secondary-container">
+    <footer class="responsive secondary-container">
+      <p>
+        <strong>Elementarium - Browse the Periodic Table of Elements.</strong><br>
+        &copy; 2025 Luciano Felix. All rights reserved.
+      </p>
+    </footer>
+  </div>
+    
   <div id="overlay" class="overlay small-blur dark"></div>
   <dialog id="search-dialog" class="bottom">
     <div id="periodic-table" class="grid scroll">

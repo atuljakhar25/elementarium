@@ -43,6 +43,10 @@ body.dark {
   color: var(--on-primary-container);
 }
 
+[v-cloak] {
+  display: none;
+}
+
 #periodic-table {
   width: fit-content;
   max-width: 100%;
@@ -115,7 +119,9 @@ dt, dd {
 }
 
 footer {
-  margin-top: 4rem;
-  padding-top: 1rem;
-  padding-bottom: 5rem;
+  padding: 2rem 0;
+}
+.footer-wrap {
+  margin-top: 6rem;
+  padding-bottom: 4rem;
 }
