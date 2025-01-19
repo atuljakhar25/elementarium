@@ -223,7 +223,7 @@ class App {
       if (remaining === decay) {
         console.log(true,decay, layer, sublevel)
         console.log(decay % size, sublevel - 1)
-        
+
         if (sublevel === 2 && size - decay % size === 1) {
           orbitals[layer + 1][0][0]--
           decay++
@@ -349,11 +349,20 @@ class App {
   }
 
   static setChemical(chemical) {
-    const atomOrbitals = document.getElementById('atom-orbitals')
+    const update = () => {
+      const atomOrbitals = document.getElementById('atom-orbitals')
 
-    this.scope.idSelectedChemical = chemical[0] - 1
-    this.scope.chemical = this.getChemicalInfo(this.scope.idSelectedChemical)
-    atomOrbitals.$scope.shells = this.shells
+      this.scope.idSelectedChemical = chemical[0] - 1
+      this.scope.chemical = this.getChemicalInfo(this.scope.idSelectedChemical)
+      atomOrbitals.$scope.shells = this.shells
+    }
+
+    if (!document.startViewTransition) {
+      update()
+      return
+    }
+
+    document.startViewTransition(() => update());
   }
 
   static setChemicalById(id) {
