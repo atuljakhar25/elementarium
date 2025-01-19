@@ -6,23 +6,24 @@
   <meta charset="UTF-8">
   <title>Elementarium</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="Description" content="Color picking tool.">
-  <meta property="og:title" content="picker">
+  <meta name="Description" content="Browse the Periodic Table of Elements.">
+  <meta property="og:title" content="Elementarium">
   <meta property="og:type" content="website">
-  <meta property="og:description" content="Color picking tool.">
+  <meta property="og:description" content="Browse the Periodic Table of Elements.">
   <meta property="og:image"
-      content="https://repository-images.githubusercontent.com/250960025/1b0969ff-a9e5-40a7-9058-b7ddbff6f117">
+      content="https://repository-images.githubusercontent.com/163617904/43ee2f65-5263-4ef6-9b3d-223b2caf6b61">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/icons/favicon-96x96.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
   <link rel="icon" type="image/svg" href="/icons/favicon.svg">
-  <link rel="shortcut icon" href="/favicon.ico">
-  <!-- <link rel="manifest" href="/icons/manifest.json"> -->
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="manifest" href="site.webmanifest" />
   <meta name="apple-mobile-web-app-title" content="color">
   <meta name="application-name" content="color">
-  <meta name="msapplication-TileColor" content="#ff0000">
-  <meta name="theme-color" content="#ff0000">
+  <meta name="msapplication-TileColor" content="#1e1b16">
+  <meta name="theme-color" content="#1e1b16">
 
   <link href="https://cdn.jsdelivr.net/npm/beercss@3.7.12/dist/cdn/beer.min.css" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
@@ -42,7 +43,12 @@
   <header class="top-round no-padding" style="position: fixed; inset: 0; top: auto; z-index: 99;">
     <nav class="small no-space">
       <div class="button vertical transparent no-wave">
-        <svg viewBox="0 0 320 320" class="circle small"><circle cx="160" cy="160" r="160" fill="#FD2"></circle><circle cx="160" cy="160" r="80" fill="#FFF"></circle><path fill="#222" d="M148.5 140l23 40H280v-20c0-66.2-53.8-120-120-120S40 93.8 40 160s53.8 120 120 120c21.1 0 41.8-5.6 60-16.1l-20-34.6c-12.1 7-26 10.7-40 10.7-44.1 0-80-35.9-80-80s35.9-80 80-80c37.2 0 68.6 25.5 77.5 60h-89z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-160 -160 320 320" class="circle small">
+          <circle r="160" fill="#FABD00"/>
+          <circle r="80" fill="#FFFFFF"/>
+          <path d="m-20,0l120,0a100,100,0,1,0,-50,86.6025" fill="none" stroke="#221F1A" stroke-width="40" />
+          <path d="m0,-80a80,80,0,1,0,0,160" transform="rotate(-30) scale(.5)" fill="#FFFFFF" />
+        </svg>
       </div>
       <div class="max"></div>
       <button @click="openSearchDialog" class="border">
