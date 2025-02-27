@@ -7,7 +7,7 @@
     Browse the Periodic Table of Elements
 </p>
 <p align="center">
-    <a href="https://github.com/FelixLuciano/color/actions/workflows/deploy.yml"><img src="https://github.com/FelixLuciano/color/actions/workflows/deploy.yml/badge.svg" alt="Deploy"></a>
+    <a href="https://github.com/rohitchauhan0/color/actions/workflows/deploy.yml"><img src="https://github.com/rohitchauhan0/color/actions/workflows/deploy.yml/badge.svg" alt="Deploy"></a>
 </p>
 
 ## Check it out
